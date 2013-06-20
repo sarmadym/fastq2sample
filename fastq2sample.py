@@ -31,14 +31,13 @@ def main(argv):
    	includes = ['*.fastq', '*.fastq.gz','*.fq','*.fq.gz']
    	includes = r'|'.join([fnmatch.translate(x) for x in includes])
    	for root, dirs, files in os.walk(path):
-   		
-   		files = [os.path.join(root, f) for f in files]
+         print files
+         files = [os.path.join(root, f) for f in files]
    		#files = [f for f in files if not re.match(excludes, f)]
-   		files = [f for f in files if re.match(includes, f)]
+         files = [f for f in files if re.match(includes, f)]
 
    	for fname in files:
    		print fname
-
 
 
 if __name__ == "__main__":
