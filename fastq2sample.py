@@ -19,6 +19,7 @@ class Pair(object):
         print '[%s]' % ', '.join(map(str, pair_array))
         print ""
         for current_pair in pair_array:
+            print "current_pair is: " + current_pair.pe1 + ", " + current_pair.pe2
             if current_pair.pe1 == pair.pe1 or current_pair.pe2 == pair.pe2:
                 return pair_array.index(current_pair)
 
