@@ -17,11 +17,18 @@ class Pair(object):
         """Returns index of pair in pair_array (returns -1 when pair is not in pair_array)"""
         print "Looking for ["+ pair.pe1 + ", " +pair.pe2 +"] in:"
         print '[%s]' % ', '.join(map(str, pair_array))
-        print ""
+
         for current_pair in pair_array:
             print "current_pair is: " + current_pair.pe1 + ", " + current_pair.pe2
-            if current_pair.pe1 == pair.pe1 or current_pair.pe2 == pair.pe2:
+            current_pair_pe1_root = current_pair.pe1[:current_pair.pe1.find("_pe1")]
+            current_pair_pe2_root = current_pair.pe2[:current_pair.pe2.find("_pe2")]
+            pair_pe1_root = pair.pe1[:pair.pe2.find("_pe1")]
+            pair_pe2_root = pair.pe2[:pair.pe2.find("_pe2")]
+
+            if (current_pair_pe1_root != "MISSING"  and current_pair_pe1_root == pair_pe1_root ) or \
+                    ( current_pair_pe2_root != "MISSING" and current_pair_pe2_root == pair_pe2_root):
                 return pair_array.index(current_pair)
+
 
         return -1 # no match
 
