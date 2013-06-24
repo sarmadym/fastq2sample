@@ -2,6 +2,7 @@
 import sys
 import getopt
 import os
+import ntpath
 import re
 import fnmatch
 
@@ -11,24 +12,54 @@ class Pair:
         self.pe1 = p1
         self.pe2 = p2
 
+    @staticmethod
+    def find_pair(pair_array, pair):
+        """Returns index of pair in pair_array (returns -1 when pair is not in pair_array)"""
+
+        for current_pair in pair_array:
+            if current_pair.pe1 == pair.pe1 or current_pair.pe2 == pair.pe2:
+                return pair_array.index(current_pair)
+
+        return -1 # no match
+
 
 class Sample:
     def __init__(self, sampleLabel):
         self.label = sampleLabel
-        self.seqArray = [] # This list stores pairs of paths to paired end fastq files.
+        self.seq_array = [] # This list stores pairs of paths to paired end fastq files.
 
-    def addPair(self, p1, p2):
-        self.seqArray.append(Pair(p1, p2))
+    def add_pair(self, p1, p2):
+        self.seq_array.append(Pair(p1, p2))
+
+    def add_pair(self, pair):
+        self.seq_array.append(pair)
+
+
+    @staticmethod
+    def find_sample(sample_array, label):
+        """Returns index of the sample object in sample_array by comparing sample labels with label
+        (returns -1 when sample_object is not in sample_array).
+        """
+
+        for sample in sample_array:
+            if sample.label == label:
+                return sample_array.index(sample)
+
+        return -1 # no match
+
 
 
 def usage():
     print "use: sample2fastq -p path-to-look-for-fastqs"
 
+def sample_name(path):
+    filename = ntpath.basename(path)
+    sample_label = filename.partition('_')
+    return sample_label
+
 
 def main(argv):
-    """
-     multi-line comment
-     """
+
     try:
         path = os.getcwd()
         opts, args = getopt.getopt(argv, "hp:", ["help", "path="])
@@ -42,6 +73,7 @@ def main(argv):
     except getopt.GetoptError:
         usage()
         sys.exit(2)
+
     print ("Looking for fastq files in " + path)
 
     samples = []
@@ -52,10 +84,63 @@ def main(argv):
 
     for root, dirs, files in os.walk(path):
         files = [os.path.join(root, f) for f in files]
-        incfiles = [f for f in files if re.match(includes, f)]
+        include_files = [f for f in files if re.match(includes, f)]
 
-    for fname in incfiles:
-        print "matched files:" + fname
+    for file_path in include_files:
+
+        print "matched files:" + file_path
+
+        sample_label = sample_name(file_path)
+        pair_to_add = Pair('MISSING','MISSING')
+
+
+        current_sample = Sample(sample_label)
+        pair_seen = 1
+
+        if file_path.find('pe_1') >= 0 :
+            current_sample.add_pair(file_path, 'MISSING')
+            pair_to_add.pe1 = file_path
+            pair_to_add.pe2 = 'MISSING'
+
+        elif file_path.find('pe_2') >= 0 :
+            current_sample.add_pair('MISSING',file_path)
+            pair_to_add.pe2 = file_path
+            pair_to_add.pe1 = 'MISSING'
+            pair_seen = 2
+
+        s_index= Sample.find_sample(samples, sample_label)
+        if s_index < 0: #  This is a new sample, a new object has to be added
+            samples.append(current_sample)
+            print "New sample"+ current_sample.label + " added"
+        else: # This sample has been already seen, we just need to add fastq pairs
+            list_sample = samples[s_index]
+            print "Sample "+sample_label +"is already in the list at position s_index"
+
+            p_index= Pair.find_pair(list_sample.seq_array, pair_to_add)
+            if p_index < 0:
+                list_sample.add_pair(pair_to_add)
+            else:
+                if pair_seen == 1:
+                    if list_sample.seq_array[p_index].pe1 == 'MISSING':
+                        list_sample.seq_array[p_index].pe1 == pair_to_add.pe1
+                    else:
+                        print "WARNING: This sample has "+ \
+                              list_sample.seq_array[p_index].pe1 +\
+                              " as value for paired end 1.It is going to be replaced with " + \
+                              pair_to_add.pe1
+                        list_sample.seq_array[p_index].pe1 == pair_to_add.pe1
+
+                if pair_seen == 2:
+                    if list_sample.seq_array[p_index].pe2 == 'MISSING':
+                        list_sample.seq_array[p_index].pe2 == pair_to_add.pe2
+
+                    else:
+                        print "WARNING: This sample has "+ \
+                              list_sample.seq_array[p_index].pe2 +\
+                              " as value for paired end 2.It is going to be replaced with " + \
+                              pair_to_add.pe1
+                        list_sample.seq_array[p_index].pe2 == pair_to_add.pe2
+
 
 
 if __name__ == "__main__":
