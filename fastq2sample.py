@@ -7,7 +7,7 @@ import re
 import fnmatch
 
 
-class Pair:
+class Pair(object):
     def __init__(self, p1, p2):
         self.pe1 = p1
         self.pe2 = p2
@@ -23,7 +23,7 @@ class Pair:
         return -1 # no match
 
 
-class Sample:
+class Sample(object):
     def __init__(self, sampleLabel):
         self.label = sampleLabel
         self.seq_array = [] # This list stores pairs of paths to paired end fastq files.
