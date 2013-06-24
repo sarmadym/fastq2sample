@@ -15,7 +15,9 @@ class Pair(object):
     @staticmethod
     def find_pair(pair_array, pair):
         """Returns index of pair in pair_array (returns -1 when pair is not in pair_array)"""
-
+        print "Looking for "+ pair.pe1 + "**** " +pair.pe2 +"in:"
+        print pair_array
+        print ""
         for current_pair in pair_array:
             if current_pair.pe1 == pair.pe1 or current_pair.pe2 == pair.pe2:
                 return pair_array.index(current_pair)
@@ -84,10 +86,11 @@ def main(argv):
 
     for file_path in include_files:
 
-        print "matched files: " + file_path
+        print ""
+        print "matched " + file_path
 
         sample_label = sample_name(file_path)
-        print "sample label found " + sample_label
+        print "Sample label found " + sample_label
         pair_to_add = Pair('MISSING','MISSING')
 
 
@@ -111,7 +114,7 @@ def main(argv):
             print "New sample"+ current_sample.label + " added"
         else: # This sample has been already seen, we just need to add fastq pairs
             list_sample = samples[s_index]
-            print "Sample "+sample_label +"is already in the list at position s_index"
+            print "Sample "+sample_label +" is already in the list at position "+ s_index
 
             p_index= Pair.find_pair(list_sample.seq_array, pair_to_add)
             if p_index < 0:
