@@ -114,7 +114,7 @@ def main(argv):
             print "New sample"+ current_sample.label + " added"
         else: # This sample has been already seen, we just need to add fastq pairs
             list_sample = samples[s_index]
-            print "Sample "+sample_label +" is already in the list at position "+ s_index
+            print "Sample "+sample_label +" is already in the list at position "+ str(s_index)
 
             p_index= Pair.find_pair(list_sample.seq_array, pair_to_add)
             if p_index < 0:
