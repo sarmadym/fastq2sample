@@ -18,7 +18,7 @@ class Pair(object):
         print "Looking for: ["+ pair.pe1 + ", " +pair.pe2 +"]"
 
         for current_pair in pair_array:
-            print "current_pair: " + current_pair.pe1 + ", " + current_pair.pe2
+            print "current_pair: [" + current_pair.pe1 + ", " + current_pair.pe2 +"]"
             current_pair_pe1_root = current_pair.pe1[:current_pair.pe1.find("_pe1")]
             current_pair_pe2_root = current_pair.pe2[:current_pair.pe2.find("_pe2")]
             pair_pe1_root = pair.pe1[:pair.pe2.find("_pe1")]
@@ -26,6 +26,9 @@ class Pair(object):
 
             if (current_pair_pe1_root != "MISSING"  and current_pair_pe1_root == pair_pe1_root ) or \
                     ( current_pair_pe2_root != "MISSING" and current_pair_pe2_root == pair_pe2_root):
+                return pair_array.index(current_pair)
+            elif (current_pair_pe1_root != "MISSING"  and current_pair_pe2_root != "MISSING") and \
+                    (current_pair_pe2_root == pair_pe1_root or current_pair_pe1_root == pair_pe2_root):
                 return pair_array.index(current_pair)
 
         print "No Match! returning -1"
