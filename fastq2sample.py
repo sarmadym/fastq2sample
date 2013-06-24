@@ -15,11 +15,10 @@ class Pair(object):
     @staticmethod
     def find_pair(pair_array, pair):
         """Returns index of pair in pair_array (returns -1 when pair is not in pair_array)"""
-        print "Looking for ["+ pair.pe1 + ", " +pair.pe2 +"] in:"
-        print '[%s]' % ', '.join(map(str, pair_array))
+        print "Looking for: ["+ pair.pe1 + ", " +pair.pe2 +"]"
 
         for current_pair in pair_array:
-            print "current_pair is: " + current_pair.pe1 + ", " + current_pair.pe2
+            print "current_pair: " + current_pair.pe1 + ", " + current_pair.pe2
             current_pair_pe1_root = current_pair.pe1[:current_pair.pe1.find("_pe1")]
             current_pair_pe2_root = current_pair.pe2[:current_pair.pe2.find("_pe2")]
             pair_pe1_root = pair.pe1[:pair.pe2.find("_pe1")]
@@ -29,7 +28,7 @@ class Pair(object):
                     ( current_pair_pe2_root != "MISSING" and current_pair_pe2_root == pair_pe2_root):
                 return pair_array.index(current_pair)
 
-
+        print "No Match! returning -1"
         return -1 # no match
 
 
