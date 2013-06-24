@@ -26,9 +26,11 @@ class Pair(object):
 
             if (current_pair_pe1_root != "MISSING"  and current_pair_pe1_root == pair_pe1_root ) or \
                     ( current_pair_pe2_root != "MISSING" and current_pair_pe2_root == pair_pe2_root):
+                print "Matched_A! returning "+ str(pair_array.index(current_pair))
                 return pair_array.index(current_pair)
             elif (current_pair_pe1_root != "MISSING"  and current_pair_pe2_root != "MISSING") and \
                     (current_pair_pe2_root == pair_pe1_root or current_pair_pe1_root == pair_pe2_root):
+                print "Matched_B! returning "+ str(pair_array.index(current_pair))
                 return pair_array.index(current_pair)
 
         print "No Match! returning -1"
@@ -156,8 +158,6 @@ def main(argv):
         for pair in s.seq_array:
             print "   Pair1:"+pair.pe1
             print "   Pair2:"+pair.pe2
-
-
 
 
 if __name__ == "__main__":
