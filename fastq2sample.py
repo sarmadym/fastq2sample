@@ -137,6 +137,13 @@ def main(argv):
                               " as value for paired end 2.It is going to be replaced with " + \
                               pair_to_add.pe1
                         list_sample.seq_array[p_index].pe2 == pair_to_add.pe2
+    print "DONE! LISTING WHAT WE FOUND NOW:"
+    for s in samples:
+        print s.label +":"
+        for pair in s.seq_array:
+            print "   Pair1:"+pair.pe1
+            print "   Pair2:"+pair.pe2
+
 
 
 
