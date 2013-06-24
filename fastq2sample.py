@@ -15,8 +15,8 @@ class Pair(object):
     @staticmethod
     def find_pair(pair_array, pair):
         """Returns index of pair in pair_array (returns -1 when pair is not in pair_array)"""
-        print "Looking for "+ pair.pe1 + "**** " +pair.pe2 +"in:"
-        print pair_array
+        print "Looking for ["+ pair.pe1 + ", " +pair.pe2 +"] in:"
+        print '[%s]' % ', '.join(map(str, pair_array))
         print ""
         for current_pair in pair_array:
             if current_pair.pe1 == pair.pe1 or current_pair.pe2 == pair.pe2:
