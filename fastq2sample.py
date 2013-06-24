@@ -28,7 +28,6 @@ class Sample:
         self.label = sampleLabel
         self.seq_array = [] # This list stores pairs of paths to paired end fastq files.
 
-    @classmethod
     def add_pair(self, p1, p2):
         self.seq_array.append(Pair(p1, p2))
 
