@@ -31,10 +31,6 @@ class Sample:
     def add_pair(self, p1, p2):
         self.seq_array.append(Pair(p1, p2))
 
-    def add_pair(self, pair):
-        self.seq_array.append(pair)
-
-
     @staticmethod
     def find_sample(sample_array, label):
         """Returns index of the sample object in sample_array by comparing sample labels with label
@@ -88,7 +84,7 @@ def main(argv):
 
     for file_path in include_files:
 
-        print "matched files:" + file_path
+        print "matched files: " + file_path
 
         sample_label = sample_name(file_path)
         pair_to_add = Pair('MISSING','MISSING')
