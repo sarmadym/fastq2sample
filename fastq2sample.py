@@ -87,6 +87,7 @@ def main(argv):
         print "matched files: " + file_path
 
         sample_label = sample_name(file_path)
+        print "sample label found " + sample_label
         pair_to_add = Pair('MISSING','MISSING')
 
 
