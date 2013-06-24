@@ -51,7 +51,7 @@ def usage():
 def sample_name(path):
     filename = ntpath.basename(path)
     sample_label = filename.partition('_')
-    return sample_label
+    return sample_label[0]
 
 
 def main(argv):
