@@ -28,6 +28,7 @@ class Sample:
         self.label = sampleLabel
         self.seq_array = [] # This list stores pairs of paths to paired end fastq files.
 
+    @classmethod
     def add_pair(self, p1, p2):
         self.seq_array.append(Pair(p1, p2))
 
@@ -115,7 +116,7 @@ def main(argv):
 
             p_index= Pair.find_pair(list_sample.seq_array, pair_to_add)
             if p_index < 0:
-                list_sample.add_pair(pair_to_add)
+                list_sample.add_pair(pair_to_add.pe1,pair_to_add.pe2)
             else:
                 if pair_seen == 1:
                     if list_sample.seq_array[p_index].pe1 == 'MISSING':
