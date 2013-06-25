@@ -28,8 +28,10 @@ class Pair(object):
                     ( current_pair_pe2_root != "MISSING" and current_pair_pe2_root == pair_pe2_root):
                 print "Matched_A! returning "+ str(pair_array.index(current_pair))
                 return pair_array.index(current_pair)
-            elif (current_pair_pe1_root != "MISSING"  and current_pair_pe2_root != "MISSING") and \
-                    (current_pair_pe2_root == pair_pe1_root or current_pair_pe1_root == pair_pe2_root):
+
+            elif (current_pair_pe1_root == "MISSING" and current_pair_pe2_root == pair_pe2_root) or \
+                    (current_pair_pe2_root == "MISSING" and current_pair_pe1_root == pair_pe1_root):
+
                 print "Matched_B! returning "+ str(pair_array.index(current_pair))
                 return pair_array.index(current_pair)
 
@@ -134,6 +136,7 @@ def main(argv):
             else:
                 if pair_seen == 1:
                     if list_sample.seq_array[p_index].pe1 == 'MISSING':
+
                         list_sample.seq_array[p_index].pe1 == pair_to_add.pe1
                     else:
                         print "WARNING: This sample has "+ \
