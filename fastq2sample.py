@@ -40,6 +40,12 @@ class Pair(object):
                 print "Matched_B! returning "+ str(pair_array.index(current_pair))
                 return pair_array.index(current_pair)
 
+            elif (current_pair.pe1 == "MISSING" and current_pair_pe1_root == pair_pe2_root) or \
+                    (current_pair.pe2 == "MISSING" and current_pair_pe2_root == pair_pe1_root):
+
+                print "Matched_C! returning "+ str(pair_array.index(current_pair))
+
+
         print "No Match! returning -1"
         return -1 # no match
 
