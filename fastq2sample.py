@@ -24,6 +24,11 @@ class Pair(object):
             pair_pe1_root = pair.pe1[:pair.pe2.find("_pe1")]
             pair_pe2_root = pair.pe2[:pair.pe2.find("_pe2")]
 
+            print "current_pair_pe1_root"+ current_pair_pe2_root
+            print "pair_pe1_root"+ pair_pe1_root
+            print "current_pair_pe2_root"+ current_pair_pe2_root
+            print "pair_pe2_root"+ pair_pe2_root
+
             if (current_pair_pe1_root != "MISSING"  and current_pair_pe1_root == pair_pe1_root ) or \
                     ( current_pair_pe2_root != "MISSING" and current_pair_pe2_root == pair_pe2_root):
                 print "Matched_A! returning "+ str(pair_array.index(current_pair))
@@ -157,10 +162,11 @@ def main(argv):
                         list_sample.seq_array[p_index].pe2 == pair_to_add.pe2
     print "DONE! LISTING WHAT WE FOUND NOW:"
     for s in samples:
-        print s.label +":"
+        sys.stdout.write(s.label +"\t")
+        #print s.label +":"
         for pair in s.seq_array:
-            print "   Pair1:"+pair.pe1
-            print "   Pair2:"+pair.pe2
+            sys.stdout.write(pair.pe1+"\t"+pair.pe2)
+        sys.stdout.write("\n")
 
 
 if __name__ == "__main__":
