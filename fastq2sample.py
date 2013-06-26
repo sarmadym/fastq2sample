@@ -19,8 +19,8 @@ class Pair(object):
 
         for current_pair in pair_array:
             print "current_pair: [" + current_pair.pe1 + ", " + current_pair.pe2 +"]"
-            current_pair_pe1_root = current_pair.pe1[:current_pair.pe1.find("_pe_1")]
-            current_pair_pe2_root = current_pair.pe2[:current_pair.pe2.find("_pe_2")]
+            current_pair_pe1_root = current_pair.pe1[:current_pair.pe1.find("_pe_1")+1]
+            current_pair_pe2_root = current_pair.pe2[:current_pair.pe2.find("_pe_2")+1]
             pair_pe1_root = pair.pe1[:pair.pe1.find("_pe_1")+1]
             pair_pe2_root = pair.pe2[:pair.pe2.find("_pe_2")+1]
 
